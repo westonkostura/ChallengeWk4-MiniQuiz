@@ -12,3 +12,8 @@ h1 {
     margin: 0;
     padding: 0;
 }
+
+/* fav page */
+#scorebox {
+    border: 3px solid black;
+}

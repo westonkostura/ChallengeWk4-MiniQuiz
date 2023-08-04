@@ -53,7 +53,7 @@ const questions = [
       ".createElement()",
       ".children",
       ".append()",
-      ".getElementbyClasName()",
+      ".getElementbyClassName()",
     ],
     correctAnswer: ".getElementbyClassName()",
   },
@@ -88,7 +88,6 @@ function showQuestions() {
 
     for (let index = 0; index < answers.length; index++) {
       const element = answers[index];
-      console.log(element);
       var answer = document.createElement("li");
       answer.classList.add("answerbtn");
       answer.innerText = element;
@@ -101,6 +100,9 @@ function showQuestions() {
 
 function checkAnswer(event) {
   event.preventDefault();
+  if(timeLeft < 0) {
+    endQuiz();
+  }
   if (event.target && event.target.matches(".answerbtn")) {
     userAnswer = event.target.textContent;
 
@@ -122,6 +124,34 @@ function endQuiz() {
   clearInterval(timerId);
   message.innerHTML = `<h3>Game over </h3> <p>
     Your score: ${finalScore} </p>`;
+
+   var initials = document.createElement('input');
+   initials.setAttribute('type', 'text');
+   initials.setAttribute('placeholder', 'Enter Initials');
+    initials.setAttribute('id', 'initials')
+   message.append(initials);
+
+   var submitScore = document.createElement('button');
+   submitScore.setAttribute('onclick', 'saveScore()')
+   submitScore.textContent = "Submit score";
+   message.append(submitScore)
+
+
+}
+
+function saveScore() {
+  var initials = document.querySelector('#initials').value;
+  finalScore;
+  var highScore = {
+    score: finalScore,
+    initials: initials
+  }
+  var highScorepageLength = 0;
+  localStorage.setItem('score' + highScorepageLength, JSON.stringify(highScore));
+  highScorepageLength++;
+  var savedMessage = document.createElement('p');
+  savedMessage.textContent = "Saved HighScore!";
+  message.append(savedMessage)
 }
 
 startQuizBtn.addEventListener("click", function () {
@@ -129,4 +159,4 @@ startQuizBtn.addEventListener("click", function () {
   startTimer();
 });
 
-document.addEventListener("click", checkAnswer);
+cont.addEventListener("click", checkAnswer);
