@@ -4,6 +4,8 @@ var startQuizBtn = document.getElementById("quiz-start");
 var answerBox = document.getElementById("answerBox");
 var questionEl = document.querySelector("h3");
 var message = document.getElementById("message");
+var messageEnd = document.querySelector('#messageEnd')
+var gameBox = document.querySelector('#game-explanation')
 var questionIndex = 0;
 var timeLeft = 100;
 var timerId;
@@ -65,6 +67,7 @@ function startTimer() {
     updateTimeLeft();
     if (timeLeft <= 0) {
       clearInterval(timerId);
+      cont.remove();
       endQuiz();
     }
   }, 1000);
@@ -94,13 +97,18 @@ function showQuestions() {
       answerBox.append(answer);
     }
   } else {
+    cont.remove();
     endQuiz();
   }
+  startQuizBtn.addEventListener('click', function() {
+    location.reload();
+  })
 }
 
 function checkAnswer(event) {
   event.preventDefault();
   if (timeLeft < 0) {
+    cont.remove();
     endQuiz();
   }
   if (event.target && event.target.matches(".answerbtn")) {
@@ -109,9 +117,9 @@ function checkAnswer(event) {
     message.innerHTML = "";
 
     if (userAnswer == rightAnswer) {
-      message.textContent = "Correct!";
+      message.innerText = "CORRECT! \n";
     } else {
-      message.textContent = "Wrong!";
+      message.innerText = "WRONG! \n";
       timeLeft -= 10;
     }
     questionIndex++;
@@ -120,22 +128,26 @@ function checkAnswer(event) {
 }
 
 function endQuiz() {
+  gameBox.remove();
   finalScore = timeLeft;
   clearInterval(timerId);
-  message.innerHTML = `<h3>Game over </h3> <p>
+  messageEnd.innerHTML = `<h3>GAME OVER! </h3> <p>
     Your score: ${finalScore} </p>`;
 
   var initials = document.createElement("input");
   initials.setAttribute("type", "text");
   initials.setAttribute("placeholder", "Enter Initials");
   initials.setAttribute("id", "initials");
-  message.append(initials);
+  messageEnd.append(initials);
 
   var submitScore = document.createElement("button");
-  //  submitScore.setAttribute('onclick', 'saveScore())
   submitScore.textContent = "Submit score";
-  message.append(submitScore);
+  messageEnd.append(submitScore);
   submitScore.onclick = saveScore;
+
+  startQuizBtn.addEventListener('click', function() {
+    location.reload();
+  })
 }
 
 function saveScore() {
@@ -150,9 +162,7 @@ function saveScore() {
   console.log(newhighScore);
   highScores.push(newhighScore);
 
-  // var highScorepageLength = 0;
   localStorage.setItem("score", JSON.stringify(highScores));
-  // highScorepageLength++;
   var savedMessage = document.createElement("p");
   savedMessage.textContent = "Saved HighScore!";
   message.append(savedMessage);

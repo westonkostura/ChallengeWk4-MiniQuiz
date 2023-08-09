@@ -2,12 +2,17 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 h1 {
     margin: 0;
     padding: 0;
 }
+
+button {
+    font-size: 15px;
+    margin: 5px;
+}
+
 #time-left {
     margin: 0;
     padding: 0;
@@ -19,9 +24,13 @@ h1 {
     border: 3px solid black;
 }
 
+#title {
+    margin: 20px;
+    font-size: 35px;
+}
 
 #game-explanation {
-    
+    margin: 20px;
     font-size: 25px;
 }
 

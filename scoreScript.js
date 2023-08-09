@@ -21,7 +21,8 @@ console.log(savedScore)
 // scoreEl.append(score);
 
 resetScores.addEventListener('click', function() {
-    localStorage.clear()
+    localStorage.clear();
+    location.reload();
 })
 function printHighScores() {
     var highScores = JSON.parse(localStorage.getItem("score")) || [];
@@ -30,7 +31,7 @@ highScores.sort(function(a, b) {
 })
 for (let i = 0; i < highScores.length; i++) {
     var playerRankLi = document.createElement('li');
-    playerRankLi.textContent = highScores[i].initials + " - " + highScores[i].score;
+    playerRankLi.innerText ="--- " + highScores[i].initials + ` ---\n Score: ` + highScores[i].score;
     playerRankOl.appendChild(playerRankLi)
 
 }
