@@ -4,8 +4,8 @@ var startQuizBtn = document.getElementById("quiz-start");
 var answerBox = document.getElementById("answerBox");
 var questionEl = document.querySelector("h3");
 var message = document.getElementById("message");
-var messageEnd = document.querySelector('#messageEnd')
-var gameBox = document.querySelector('#game-explanation')
+var messageEnd = document.querySelector("#messageEnd");
+var gameBox = document.querySelector("#game-explanation");
 var questionIndex = 0;
 var timeLeft = 100;
 var timerId;
@@ -100,9 +100,9 @@ function showQuestions() {
     cont.remove();
     endQuiz();
   }
-  startQuizBtn.addEventListener('click', function() {
+  startQuizBtn.addEventListener("click", function () {
     location.reload();
-  })
+  });
 }
 
 function checkAnswer(event) {
@@ -145,9 +145,9 @@ function endQuiz() {
   messageEnd.append(submitScore);
   submitScore.onclick = saveScore;
 
-  startQuizBtn.addEventListener('click', function() {
+  startQuizBtn.addEventListener("click", function () {
     location.reload();
-  })
+  });
 }
 
 function saveScore() {
